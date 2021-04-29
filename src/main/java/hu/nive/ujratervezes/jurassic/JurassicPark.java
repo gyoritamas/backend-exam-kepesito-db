@@ -24,7 +24,7 @@ public class JurassicPark {
                         "WHERE actual > expected " +
                         "ORDER BY breed";
 
-        try (Connection conn = getConnection();
+        try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             ResultSet rs = stmt.executeQuery();
@@ -39,16 +39,4 @@ public class JurassicPark {
 
         return overpopulated;
     }
-
-    private Connection getConnection() {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return conn;
-    }
-
 }
